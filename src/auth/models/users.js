@@ -16,9 +16,8 @@ const users = new mongoose.Schema({
 users.virtual('token').get(function() {
   let tokenObject = {
     username: this.username,
-    exp: Math.floor(Date.now() / 1000) + (20 * 60),
   };
-  return jwt.sign(tokenObject, SECRET);
+  return jwt.sign(tokenObject, SECRET, { expiresIn: '24h' });
 });
 
 // Pre-Save Hook
